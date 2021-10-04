@@ -66,6 +66,8 @@
 - creer un fichier html 
   - dans lequel vous ajouterez un form avec deux inputs login + password + button pour envoyer la requete
   - le form fera un POST sur localhost:3000
+- lancer lapp `node app.js`
+- ouvrir index.html dans votre navigateur, remplissez login plus password puis valider 
 - la page affiche reprendra le contenu des inputs + password du fichier html
  
  ### index.html 
