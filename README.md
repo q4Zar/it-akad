@@ -64,7 +64,7 @@
 - la page affiche reprendra le contenu des inputs + password du fichier html
  
  ### index.html 
- ```
+ ```html
  <html>
     <form action="http://localhost:3000/" method="post">
       <label for="credentials">Enter Credentials: </label>
@@ -76,7 +76,7 @@
  ```
     
  #### app.js
- ```
+ ```js
  // require est un mot clef necessaire pour importer un paquet
 const Koa = require('koa');
 const koaBody = require('koa-body');
@@ -96,6 +96,6 @@ app.use(async function(ctx) {
 if (!module.parent) app.listen(3000);
 ```
 
-![rendu](https://www.zupimages.net/viewer.php?id=21/40/kima.png)
+![](https://www.zupimages.net/viewer.php?id=21/40/kima.png)
 
 ---
