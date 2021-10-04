@@ -107,3 +107,16 @@ if (!module.parent) app.listen(3000);
 ![](koa-bod-render.png)
 
 ---
+
+# Initiliaser un projet node
+
+- `npm init`
+    - remplir les differents champs
+
+# Ajouter des paquets au projet
+
+- `npm install koa koa-router koa-body`
+
+# Creer une app qui rends disponbiles les 3 differentes routes sur une meme application
+
+-
