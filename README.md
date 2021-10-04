@@ -108,15 +108,24 @@ if (!module.parent) app.listen(3000);
 
 ---
 
-# Initiliaser un projet node
+### Initiliaser un projet node
 
 - `npm init`
     - remplir les differents champs
 
-# Ajouter des paquets au projet
+### Ajouter des paquets au projet
 
 - `npm install koa koa-router koa-body`
+- rajouter un champ `start` dans la partie scripts de package.json
 
-# Creer une app qui rends disponbiles les 3 differentes routes sur une meme application
+```
+"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "node app.js"
+}
+```
 
--
+### Demarrer l'application
+
+- `npm start` # vu que l'on as declarer un script de demmarage on peux l'executer en utilisant npm start
+- si l'on regarde a quoi il correspond cela reviens a faire : `node app.js`
