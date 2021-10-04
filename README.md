@@ -43,6 +43,8 @@
 - `node app.js`
 - ouvrir un navigateur et allez sur l'adresse localhost:3000 afin de voir inscrit Hello-World
 
+![](hello-world.png)
+
 ---
 
 ## Basic-Auth
@@ -51,6 +53,9 @@
 - ouvrir un navigateur et allez sur l'adresse localhost:3000
 - une popup s'affiche et vous demande les credentials stipule dans app.js `app.use(auth({ name: 'tj', pass: 'tobi' }));`
 - en rentrant tj et tobi vous acceder a la page 
+
+![](basic-auth.png)
+![](basic-auth-secret.png)
 
 ---
 
@@ -96,6 +101,7 @@ app.use(async function(ctx) {
 if (!module.parent) app.listen(3000);
 ```
 
-![](https://www.zupimages.net/viewer.php?id=21/40/kima.png)
+![](koa-bod-input.png)
+![](koa-bod-render.png)
 
 ---
