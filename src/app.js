@@ -35,8 +35,9 @@ router.post('/body-parser-string/', (ctx, next) => {
 
 // with object payload
 router.post('/authentification-to-db',  async (ctx, next) => {
-    
+
     console.log(ctx)
+
     // on recuperer les elements distincts
     // ctx.request.body = { identifier: 'itakad@gmail.com', password: 'itakad2020' }
     let login = ctx.request.body.login
@@ -61,10 +62,19 @@ router.post('/authentification-to-db',  async (ctx, next) => {
     .then(function () {
         console.log('--- --- ---')
     });
+
+    // driver db
+    // jwt = driverdb.select('select jwt from user')
+
     // affichage jwt
     console.log(jwt)
     // je retourne un object avec le jwt
     ctx.body = {jwt: jwt}
+
+})
+
+router.get('/redirection-to-random-url', (ctx, next) => {
+    ctx.redirect('https://google.com')
 })
 
 // with query string
@@ -110,11 +120,28 @@ router.get('/authentification-to-db',  async (ctx, next) => {
 // ctx.request.query = http://localhost:3000/get-auth-db?login=itakad@gmail.com&password=itakad2020
 
 
-router.post('/get-db-collection/:id', (ctx, next) => {
+router.get('/get-db-collection/:collection', async (ctx, next) => {
     // recuperer en parametre le nom de la collection a requeter
+    let collection = ctx.params.collection
+    
+
     // ensuite requeter la base de donnee
+    await axios.get(`https://gql.alcyone.life/${collection}`)
+    .then(response =>{
+        console.log(response.data) // handle succes
+        // extraction du jwt de la reponse
+        // jwt = response.data.jwt
+    })
+    .catch(function (error) {
+        console.log('error') // handle error
+    })
+    .then(function () {
+        console.log('--- --- ---')
+    });
+
     // a vous de coder
     // return content of collection
+    ctx.body = []
 })
 
 
@@ -132,4 +159,3 @@ if (!module.parent) {
     .use(router.allowedMethods())
     .listen(3000)
 }
-
