@@ -81,3 +81,26 @@ axios.post('http://localhost:3000/authentification-to-db/', {login: 'itakad@gmai
   .then(function () {
     console.log('--- --- ---')
   });
+
+// // parse object and convert to string
+axios.get('http://localhost:3000/authentification-to-db/?login=itakad@gmail.com&password=itakad2020')
+  .then(function (response) {// handle succes
+    console.log(response.data);
+  })
+  .catch(function (error) { // handle error
+    console.log(error);
+  })
+  .then(function () {
+    console.log('--- --- ---')
+  });
+
+axios.get('http://localhost:3000/get-db-collection/categories?id=2')
+  .then(function (response) {// handle succes
+    console.log(response.data);
+  })
+  .catch(function (error) { // handle error
+    console.log(error);
+  })
+  .then(function () {
+    console.log('--- --- ---')
+  });

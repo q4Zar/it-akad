@@ -33,8 +33,10 @@ router.post('/body-parser-string/', (ctx, next) => {
     ctx.body = `Request Body: ${JSON.stringify(ctx.request.body)}`;
 })
 
+// with object payload
 router.post('/authentification-to-db',  async (ctx, next) => {
     
+    console.log(ctx)
     // on recuperer les elements distincts
     // ctx.request.body = { identifier: 'itakad@gmail.com', password: 'itakad2020' }
     let login = ctx.request.body.login
@@ -65,7 +67,50 @@ router.post('/authentification-to-db',  async (ctx, next) => {
     ctx.body = {jwt: jwt}
 })
 
-router.post('/get-db-collection', (ctx, next) => {
+// with query string
+router.get('/authentification-to-db',  async (ctx, next) => {
+
+    console.log(ctx)
+    // on recuperer les elements distincts
+    // ctx.request.body = { identifier: 'itakad@gmail.com', password: 'itakad2020' }
+    let login = ctx.query.login
+    let password = ctx.query.password
+
+    // declare une variable pour le json web token
+    var jwt = null
+
+    // si les login et password sont correct je recupere un jwt
+    await axios.post('https://gql.alcyone.life/auth/local', {
+        identifier: login,
+        password: password,
+    })
+    .then(response =>{
+        console.log(response.data) // handle succes
+        // extraction du jwt de la reponse
+        jwt = response.data.jwt
+    })
+    .catch(function (error) {
+        console.log('error') // handle error
+    })
+    .then(function () {
+        console.log('--- --- ---')
+    });
+    // affichage jwt
+    console.log(jwt)
+    // je retourne un object avec le jwt
+    ctx.body = {jwt: jwt}
+})
+
+// text
+// ctx.body = "str" : text/plain
+// json
+// ctx.body = {str: "str"} : application/json
+
+// ctx.request.body = {str: "str"}
+// ctx.request.query = http://localhost:3000/get-auth-db?login=itakad@gmail.com&password=itakad2020
+
+
+router.post('/get-db-collection/:id', (ctx, next) => {
     // recuperer en parametre le nom de la collection a requeter
     // ensuite requeter la base de donnee
     // a vous de coder
