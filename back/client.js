@@ -53,23 +53,9 @@ const axios = require('axios');
 //   });
 
 
-// parse object and convert to string
+// authenticate to db with login and password
 // axios.post('http://localhost:3000/authentification-to-db/', 
 //   {login: 'itakad@gmail.com', password: 'itakad2020' })
-//   .then(function (response) {// handle succes
-//     console.log(response.data);
-//   })
-//   .catch(function (error) { // handle error
-//     console.log('error')
-//     // console.log(error);
-//   })
-//   .then(function () {
-//     console.log('--- --- ---')
-//   });
-
-
-// parse object and convert to string
-// axios.post('http://localhost:3000/authentification-to-db/', {login: 'itakad@gmail.com', password: 'itakad2020' })
 //   .then(function (response) {// handle succes
 //     console.log(response.data);
 //   })
@@ -94,8 +80,8 @@ const axios = require('axios');
 //   });
 
 
-// 
-axios.get('http://localhost:3000/get-db-collection/categories')
+//
+axios.get('http://localhost:3000/get-db-collection/categories?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjMzNDQzOTgwLCJleHAiOjE2MzYwMzU5ODB9.zMHsXnxiV5X3r9WdszPQp983fwSLWFzp1sXM0_KM8fI')
   .then(function (response) {// handle succes
     console.log(response.data);
   })

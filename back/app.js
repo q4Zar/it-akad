@@ -14,6 +14,8 @@ app.use(koaBody({ multipart: true }))
 // Declare Router
 var router = new Router()
 
+// ------------------- LVL 1 ---------------------------------------------
+
 // add route get to Router
 router.get('/hello-world/', (ctx, next) => {
     ctx.body = 'Hello-World'
@@ -33,49 +35,52 @@ router.post('/body-parser-string/', (ctx, next) => {
     ctx.body = `Request Body: ${JSON.stringify(ctx.request.body)}`;
 })
 
+// ------------------- / LVL 1 ---------------------------------------------
+// ------------------- LVL 2 ---------------------------------------------
 // with object payload
-router.post('/authentification-to-db',  async (ctx, next) => {
+// router.post('/authentification-to-db',  async (ctx, next) => {
 
-    console.log(ctx)
+//     console.log(ctx)
 
-    // on recuperer les elements distincts
-    // ctx.request.body = { identifier: 'itakad@gmail.com', password: 'itakad2020' }
-    let login = ctx.request.body.login
-    let password = ctx.request.body.password
+//     // on recuperer les elements distincts
+//     // ctx.request.body = { identifier: 'itakad@gmail.com', password: 'itakad2020' }
+//     let login = ctx.request.body.login
+//     let password = ctx.request.body.password
 
-    // declare une variable pour le json web token
-    var jwt = null
+//     // declare une variable pour le json web token
+//     var jwt = null
 
-    // si les login et password sont correct je recupere un jwt
-    await axios.post('https://gql.alcyone.life/auth/local', {
-        identifier: login,
-        password: password,
-    })
-    .then(response =>{
-        console.log(response.data) // handle succes
-        // extraction du jwt de la reponse
-        jwt = response.data.jwt
-    })
-    .catch(function (error) {
-        console.log('error') // handle error
-    })
-    .then(function () {
-        console.log('--- --- ---')
-    });
+//     // si les login et password sont correct je recupere un jwt
+//     await axios.post('https://gql.alcyone.life/auth/local', {
+//         identifier: login,
+//         password: password,
+//     })
+//     .then(response =>{
+//         console.log(response.data) // handle succes
+//         // extraction du jwt de la reponse
+//         jwt = response.data.jwt
+//     })
+//     .catch(function (error) {
+//         console.log('error') // handle error
+//     })
+//     .then(function () {
+//         console.log('--- --- ---')
+//     });
 
-    // driver db
-    // jwt = driverdb.select('select jwt from user')
+//     // driver db
+//     // jwt = driverdb.select('select jwt from user')
 
-    // affichage jwt
-    console.log(jwt)
-    // je retourne un object avec le jwt
-    ctx.body = {jwt: jwt}
+//     // affichage jwt
+//     console.log(jwt)
+//     // je retourne un object avec le jwt
+//     ctx.body = {jwt: jwt}
 
-})
+// })
 
 router.get('/redirection-to-random-url', (ctx, next) => {
     ctx.redirect('https://google.com')
 })
+
 
 // with query string
 router.get('/authentification-to-db',  async (ctx, next) => {
@@ -122,32 +127,47 @@ router.get('/authentification-to-db',  async (ctx, next) => {
 
 router.get('/get-db-collection/:collection', async (ctx, next) => {
     // recuperer en parametre le nom de la collection a requeter
+    let jwt = ctx.query.jwt
     let collection = ctx.params.collection
-    
+    let collectionData = null
+    let collectionDataName = null
 
     // ensuite requeter la base de donnee
-    await axios.get(`https://gql.alcyone.life/${collection}`)
+    await axios.get(`https://gql.alcyone.life/${collection}`, { headers: { Authorization: `Bearer ${jwt}` }})
     .then(response =>{
         console.log(response.data) // handle succes
         // extraction du jwt de la reponse
         // jwt = response.data.jwt
+        collectionData = response.data
     })
     .catch(function (error) {
+        console.log(error)
         console.log('error') // handle error
     })
     .then(function () {
         console.log('--- --- ---')
     });
 
-    // a vous de coder
-    // return content of collection
-    ctx.body = []
+    // renvoyer tout le contenu
+    // ctx.body = collectionData
+
+    // renvoyer une partie du contenu
+    collectionDataName = collectionData.map(col => col.name)
+    ctx.body = collectionDataName
 })
 
 
-router.post('/',  (ctx, next) => {
+// retrieve specific id from collection
+router.get('/get-db-collection/:collection/:name', async (ctx, next) => {
+    // axios.get(`https://alcyone.life/${collection}?name=${name}`)
+})
+
+// ------------------- / LVL 2 ---------------------------------------------
+
+router.get('/',  (ctx, next) => {
     // a vous de coder
-    return {jwt: jwt}
+    // return {jwt: jwt}
+    ctx.body = "Slash"
 })
 
 
