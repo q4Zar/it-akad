@@ -1,6 +1,15 @@
 - dans votre repo renommer votre repo src en back
+
+- creer une branche dev-front
+    - git checkout -b dev-front
+
 - creer une app react nommer front avec la commande `npx create-react-app front`
-- modifier app.js en s'inspirant de ce sample pour afficher les categories que l'ont recuperes via notre route back
+- lancer l'app front :
+    - `cd front`
+    - `yarn start` yarn c'est comme npm mais c'est facebook qui l'as devellopper
+
+- modifier app.js en s'inspirant de ce sample pour afficher les categories que l'ont recuperes via notre route back `/get-db-collection/:collection`
+
 ```js
 import React, { Component } from "react";
 import axios from "axios";
