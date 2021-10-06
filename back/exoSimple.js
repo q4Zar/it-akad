@@ -1,3 +1,21 @@
+//
+const Koa = require('koa')
+
+//
+const axios = require('axios');
+
+// acceder aux params depuis le contexte
+const koaBody = require('koa-body')
+
+// declarer un router pour avoir plusieurs route
+const Router = require('koa-router')
+
+// Declare Main Application
+const app = module.exports = new Koa()
+app.use(koaBody({ multipart: true }))
+
+// Declare Router
+var router = new Router()
 
 // Create a root ('/') router with GET request & send 'Welcome to Koa' message to client.
 router.get('/',ctx => {
@@ -80,7 +98,7 @@ router.put('/superheros/:id', ctx => {
 })
 // register routes middleware to app
 app.use(router.routes());
-
+let PORT = 3000
 app.listen(PORT,function(){
     console.log(`Server is running on ${PORT}`);
 });

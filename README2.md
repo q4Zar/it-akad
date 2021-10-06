@@ -50,3 +50,16 @@ export default class App extends Component {
   }
 }
 ```
+
+
+
+
+
+# demarrer le serveur exoSimple : `node exoSimple.js`
+# ecrire une suite de tests avec commentaires
+# qui contiendra toutes les interactions possibles depuis ces routes
+- get('/superheros')
+- post('/superheros')
+- get('/superheros/:id')
+- delete('/superheros/:id')
+- put('/superheros/:id')
