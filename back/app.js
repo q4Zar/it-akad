@@ -1,5 +1,8 @@
-const axios = require('axios');
+//
 const Koa = require('koa')
+
+//
+const axios = require('axios');
 
 // acceder aux params depuis le contexte
 const koaBody = require('koa-body')
@@ -38,44 +41,77 @@ router.post('/body-parser-string/', (ctx, next) => {
 // ------------------- / LVL 1 ---------------------------------------------
 // ------------------- LVL 2 ---------------------------------------------
 // with object payload
-// router.post('/authentification-to-db',  async (ctx, next) => {
+router.post('/authentification-to-db',  async (ctx, next) => {
 
-//     console.log(ctx)
+    console.log(ctx)
 
-//     // on recuperer les elements distincts
-//     // ctx.request.body = { identifier: 'itakad@gmail.com', password: 'itakad2020' }
-//     let login = ctx.request.body.login
-//     let password = ctx.request.body.password
+    // on recuperer les elements distincts
+    // ctx.request.body = { identifier: 'itakad@gmail.com', password: 'itakad2020' }
+    let login = ctx.request.body.login
+    let password = ctx.request.body.password
 
-//     // declare une variable pour le json web token
-//     var jwt = null
+    // declare une variable pour le json web token
+    // initialisation de la variable pour collecter la donnee de la response du post
+    var jwt = null // ------------------------------------------->
 
-//     // si les login et password sont correct je recupere un jwt
-//     await axios.post('https://gql.alcyone.life/auth/local', {
-//         identifier: login,
-//         password: password,
-//     })
-//     .then(response =>{
-//         console.log(response.data) // handle succes
-//         // extraction du jwt de la reponse
-//         jwt = response.data.jwt
-//     })
-//     .catch(function (error) {
-//         console.log('error') // handle error
-//     })
-//     .then(function () {
-//         console.log('--- --- ---')
-//     });
+    // si les login et password sont correct je recupere un jwt
+    await axios.post('https://gql.alcyone.life/auth/local', {
+        identifier: login,
+        password: password,
+    })
+    .then(response =>{
+        console.log(response.data) // handle succes
+        // extraction du jwt de la reponse
+        jwt = response.data.jwt // <-----------------------------------
+    })
+    .catch(function (error) {
+        console.log('error') // handle error
+    })
+    .then(function () {
+        console.log('--- --- ---')
+    });
 
-//     // driver db
-//     // jwt = driverdb.select('select jwt from user')
+    // driver db
+    // jwt = driverdb.select('select jwt from user')
 
-//     // affichage jwt
-//     console.log(jwt)
-//     // je retourne un object avec le jwt
-//     ctx.body = {jwt: jwt}
+    // affichage jwt
+    console.log(jwt)
+    // je retourne un object avec le jwt
+    ctx.body = {jwt: jwt}
 
-// })
+})
+
+// axios.get('http://localhost:3000/get-db-collection/Categories?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjMzNTEzMDU4LCJleHAiOjE2MzYxMDUwNTh9.Pj7citQPQEysxKMMk24jzsrbgYHwR8HB9ijmiCIdpKU')
+router.get('/get-db-collection/:name_collection', async (ctx, next) => {
+    // recuperer en parametre le nom de la collection a requeter
+    let jwt = ctx.query.jwt
+    let collection = ctx.params.name_collection
+    let collectionData = null
+    let collectionDataName = null
+
+    // ensuite requeter la base de donnee
+    await axios.get(`https://gql.alcyone.life/${collection}`, { headers: { Authorization: `Bearer ${jwt}` }}) // `Bearer ${jwt}` == 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjMzNTEzMDU4LCJleHAiOjE2MzYxMDUwNTh9.Pj7citQPQEysxKMMk24jzsrbgYHwR8HB9ijmiCIdpKU'
+    .then(response =>{
+        console.log(response.data) // handle succes
+        // extraction du jwt de la reponse
+        // jwt = response.data.jwt
+        collectionData = response.data
+    })
+    .catch(function (error) {
+        console.log(error)
+        console.log('error') // handle error
+    })
+    .then(function () {
+        console.log('--- --- ---')
+    });
+
+    // renvoyer tout le contenu
+    // ctx.body = collectionData
+
+    // renvoyer une partie du contenu
+    collectionDataName = collectionData.map(col => col.name)
+    ctx.body = collectionDataName
+})
 
 router.get('/redirection-to-random-url', (ctx, next) => {
     ctx.redirect('https://google.com')
@@ -125,36 +161,6 @@ router.get('/authentification-to-db',  async (ctx, next) => {
 // ctx.request.query = http://localhost:3000/get-auth-db?login=itakad@gmail.com&password=itakad2020
 
 
-router.get('/get-db-collection/:collection', async (ctx, next) => {
-    // recuperer en parametre le nom de la collection a requeter
-    let jwt = ctx.query.jwt
-    let collection = ctx.params.collection
-    let collectionData = null
-    let collectionDataName = null
-
-    // ensuite requeter la base de donnee
-    await axios.get(`https://gql.alcyone.life/${collection}`, { headers: { Authorization: `Bearer ${jwt}` }})
-    .then(response =>{
-        console.log(response.data) // handle succes
-        // extraction du jwt de la reponse
-        // jwt = response.data.jwt
-        collectionData = response.data
-    })
-    .catch(function (error) {
-        console.log(error)
-        console.log('error') // handle error
-    })
-    .then(function () {
-        console.log('--- --- ---')
-    });
-
-    // renvoyer tout le contenu
-    // ctx.body = collectionData
-
-    // renvoyer une partie du contenu
-    collectionDataName = collectionData.map(col => col.name)
-    ctx.body = collectionDataName
-})
 
 
 // retrieve specific id from collection
@@ -169,8 +175,6 @@ router.get('/',  (ctx, next) => {
     // return {jwt: jwt}
     ctx.body = "Slash"
 })
-
-
 
 // Start Application
 if (!module.parent) {

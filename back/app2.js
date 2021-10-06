@@ -25,6 +25,9 @@ router.get('/categories' , (ctx, next) => {
     ]
 })
 
+
+
+
 // POST : ajouter un element
 router.post('/category' , (ctx, next) => {
     // je rajoute l'object dans ma base ...
