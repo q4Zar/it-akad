@@ -1,13 +1,18 @@
-- dans votre repo renommer votre repo src en back
+# demarrer le serveur exoSimple : `node exoSimple.js`
+# ecrire une suite de tests avec commentaires src/tests/client.js
+# qui contiendra toutes les interactions possibles depuis ces routes
+- get('/superheros')
+- post('/superheros')
+- get('/superheros/:id')
+- delete('/superheros/:id')
+- put('/superheros/:id')
 
-- creer une branche dev-front
-    - git checkout -b dev-front
+---
 
-- creer une app react nommer front avec la commande `npx create-react-app front`
-- lancer l'app front :
-    - `cd front`
-    - `yarn start` yarn c'est comme npm mais c'est facebook qui l'as devellopper
-
+# sur la branche dev-front
+- creer une application react `npx create-react-app front`
+- allez dans le dossier front `cd front`
+- lancer l'application `yarn start`
 - modifier app.js en s'inspirant de ce sample pour afficher les categories que l'ont recuperes via notre route back `/get-db-collection/:collection`
 
 ```js
@@ -51,15 +56,6 @@ export default class App extends Component {
 }
 ```
 
-
-
-
-
-# demarrer le serveur exoSimple : `node exoSimple.js`
-# ecrire une suite de tests avec commentaires
-# qui contiendra toutes les interactions possibles depuis ces routes
-- get('/superheros')
-- post('/superheros')
-- get('/superheros/:id')
-- delete('/superheros/:id')
-- put('/superheros/:id')
+- utiliser react-router et creer 2 components :
+  - Article 
+  - Commentaires
