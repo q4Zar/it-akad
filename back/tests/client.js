@@ -14,18 +14,30 @@ const axios = require('axios');
 //   });
 
 
-// // parse object
-//   axios.post('http://localhost:3000/body-parser-object/', {login: 'test', password: 'pwd' })
-//     .then(function (response) {
-//       console.log(response.data) // handle succes
-//     })
-//     .catch(function (error) {
-//       console.log(error) // handle error
-//     })
-//     .then(function () {
-//       console.log('--- --- ---')
-//     });
+//
+axios.post('http://localhost:3000/category/', {name: 'Environnement', pays: 'Angleterre'})
+  .then(function (response) {
+    console.log(response.data) // handle succes
+    // { name: 'Environnement', id: 3 }
+  })
+  .catch(function (error) {
+    console.log(error) // handle error
+  })
+  .then(function () {
+    console.log('--- --- ---')
+  });
 
+//
+// axios.get('http://localhost:3000/categories?name=Technologie')
+//   .then(function (response) {// handle succes
+//     console.log(response.data);
+//   })
+//   .catch(function (error) { // handle error
+//     console.log(error);
+//   })
+//   .then(function () {
+//     console.log('--- --- ---')
+//   });
 
 // parse object and add params :id
 // axios.put('http://localhost:3000/body-parser-object/1', {login: 'test', password: 'pwd' })
@@ -81,14 +93,5 @@ const axios = require('axios');
 
 
 //
-axios.get('http://localhost:3000/get-db-collection/categories?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjMzNDQzOTgwLCJleHAiOjE2MzYwMzU5ODB9.zMHsXnxiV5X3r9WdszPQp983fwSLWFzp1sXM0_KM8fI')
-  .then(function (response) {// handle succes
-    console.log(response.data);
-  })
-  .catch(function (error) { // handle error
-    console.log(error);
-  })
-  .then(function () {
-    console.log('--- --- ---')
-  });
+
 
