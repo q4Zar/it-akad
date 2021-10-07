@@ -9,6 +9,17 @@ axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.co
         // construire bearer auth token a joindre avec la requete
         console.log(`Bearer ${response.data.jwt}`)
         // recuperer la liste des categories disponibles en base de donnees
+        axios.post('https://gql.alcyone.life/Blog-Articles', { name: 'test-2', slug: 'slug-test-2', content: 'blablabla'
+            }, { headers: { Authorization: `Bearer ${jwt}`}})
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log('error') // handle error
+            })
+            .then(function () {
+                console.log('--- --- ---')
+            })
         axios.get('https://gql.alcyone.life/Blog-Articles', { headers: { Authorization: `Bearer ${jwt}` }
             }).then(function (response) {
                 console.log(response.data)
@@ -37,30 +48,3 @@ axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.co
     .then(function () {
         console.log('--- --- ---')
     });
-
-
-
-
-
-
-// //
-// axios.get('https://gql.alcyone.life/test?name=Damien')
-// .then(function (response) {
-//     console.log(response.data) // handle succes
-// })
-// .catch(function (error) {
-//     // console.log(error)
-//     console.log('error') // handle error
-// })
-// .then(function () {
-//     console.log('--- --- ---')
-// });
-
-
-// // recuperer jwt pour joindre a une requete authentifier
-// let jwt = response.data.jwt
-
-// // construire bearer auth token a joindre avec la requete
-// console.log(`Bearer ${response.data.jwt}`)
-
-
