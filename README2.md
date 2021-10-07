@@ -57,5 +57,5 @@ export default class App extends Component {
 ```
 
 - utiliser react-router et creer 2 components :
-  - Article 
+  - Article
   - Commentaires

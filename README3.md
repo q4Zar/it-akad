@@ -32,7 +32,6 @@ if(!content){
 
 ---
 
-
 ###### Article
 ###### Modele Donnee
 - name      : string
@@ -55,9 +54,9 @@ url : https://gql.alcyone.life/Blog-Articles
 ##### axios api url
 url : https://gql.alcyone.life/Blog-Comments
 ##### Contenant les routes suivantes
-- get       /articles/comment/
-- get       /articles/comment/:id
-- post      /articles/comment/
+- get       /comment/
+- get       /comment/:id
+- post      /comment/
 <!-- - delete    /articles/comment/:id
 - put       /articles/comment/:id -->
 
