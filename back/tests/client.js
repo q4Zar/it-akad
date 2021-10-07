@@ -1,5 +1,7 @@
 // const axios = require('axios');
 
+const { default: axios } = require("axios");
+
 // TEST-0
 // Commentaire du test = ce qu'on cherche a faire
 // axios.post('http://localhost:3000/category/', {name: 'Environnement', pays: 'Angleterre'})
@@ -28,7 +30,15 @@
 //     console.log('--- --- ---')
 //   });
 
+const heroes = [
+    {id: 10, name:'Pablo'},
+    {id: 11, name:'Escobar'},
+];
 
+heroes.forEach(hero => {
+    axios.post('/superheros', hero)
+    // ...
+}
 
 
 
