@@ -73,6 +73,7 @@ router.delete('/superheros/:id', ctx => {
     let id = parseInt(ctx.params.id);
     // remove hero by id using lodash
     let result = _.remove(heros,hero => hero.id === id);
+    console.log(result)
     // send response
     ctx.body = heros;
 })

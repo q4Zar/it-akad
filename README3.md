@@ -1,4 +1,7 @@
 
+---
+
+### BackEnd
 #### Construire une API REST pour un blog:
 
 - mkdir koa-blog
@@ -11,21 +14,23 @@
         - application principale importe les routeurs de articles et comments
     - articles.js
         - routeur article
-        - instance api axios /BlogArticles
+        - api axios /BlogArticles
     - comment.js
         - routeur comment
-        - instance api axios /BlogComments
+        - api axios /BlogComments
     - tests.js
-        - instance api axios tests de toutes les routes dispo sur app.js
+        - api axios tests de toutes les routes dispo sur app.js
+
+---
 
 ##### Contenant les routes suivantes
-
+<!-- url : https://gql.alcyone.life/Blog-Articles -->
 - get       /articles
 - get       /articles/:id
 - post      /articles
 - delete    /articles/:id
 - put       /articles/:id
-
+<!-- url : https://gql.alcyone.life/Blog-Comments -->
 - get       /articles/comment/
 - get       /articles/comment/:id
 - post      /articles/comment/
@@ -38,23 +43,8 @@
 - slug      : string (lowercase)
 - content   : markdown
 - medias    : jpg|png
-######
+###### Comment
 - author    : string
 - content   : string
 
-
-##### Annexes
-##### Instance Axios
-```js
-// BlogArticles
-const instance = axios.create({
-  baseURL: 'https://gql.alcyone.life/BlogArticles',
-  timeout: 1000,
-});
-let jwt = 'fake-token'
-instance.defaults.headers.common['Authorization'] = `Bearer ${jwt}`;
-instance.post()
-.then
-.catch
-...
-```
+---
