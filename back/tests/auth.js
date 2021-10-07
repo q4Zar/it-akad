@@ -3,12 +3,10 @@ const axios = require('axios');
 // requete une la base de donnes avec login + password afin de recuperer un token (jwt : json web token)
 axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.com', password: 'itakad2020' })
     .then(function (response) {
-        // console.log(response.data) // handle succes
-        // recuperer jwt pour joindre a une requete authentifier
+        // get jwt
         let jwt = response.data.jwt
-        // construire bearer auth token a joindre avec la requete
         console.log(`Bearer ${response.data.jwt}`)
-        // recuperer la liste des categories disponibles en base de donnees
+        // create article with object + headers with jwt
         axios.post('https://gql.alcyone.life/Blog-Articles', { name: 'test-2', slug: 'slug-test-2', content: 'blablabla'
             }, { headers: { Authorization: `Bearer ${jwt}`}})
             .then(function (response) {
@@ -20,6 +18,7 @@ axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.co
             .then(function () {
                 console.log('--- --- ---')
             })
+        // get articles
         axios.get('https://gql.alcyone.life/Blog-Articles', { headers: { Authorization: `Bearer ${jwt}` }
             }).then(function (response) {
                 console.log(response.data)
@@ -30,7 +29,20 @@ axios.post('https://gql.alcyone.life/auth/local', { identifier: 'itakad@gmail.co
             .then(function () {
                 console.log('--- --- ---')
             })
-            axios.get('https://gql.alcyone.life/Blog-Comments', { headers: { Authorization: `Bearer ${jwt}` }
+        // create new comment and link to article_1
+        axios.post('https://gql.alcyone.life/Blog-Comments', { author: 'damien', content: 'blablabla', blog_article: 1
+            }, { headers: { Authorization: `Bearer ${jwt}`}})
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log('error') // handle error
+            })
+            .then(function () {
+                console.log('--- --- ---')
+            })
+        // get all comments
+        axios.get('https://gql.alcyone.life/Blog-Comments', { headers: { Authorization: `Bearer ${jwt}` }
             }).then(function (response) {
                 console.log(response.data)
             })
